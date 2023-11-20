@@ -1,0 +1,49 @@
+#include <Arduino.h>
+
+class Opp {
+  private:
+    int lampuPin1;
+    int lampuPin2;
+
+
+  public:
+    Opp(int pin1, int pin2) {
+      lampuPin1 = pin1;
+      lampuPin2 = pin2;
+      pinMode(lampuPin1, OUTPUT);
+      pinMode(lampuPin2, OUTPUT);
+      
+    }
+
+    void turnOn() {
+      digitalWrite(lampuPin1, HIGH);
+      digitalWrite(lampuPin2, HIGH);
+     
+    }
+
+    void turnOff() {
+      digitalWrite(lampuPin1, LOW);
+      digitalWrite(lampuPin2, LOW);
+      // Tambahkan digitalWrite untuk setiap pin lampu tambahan yang ingin dimatikan
+    }
+};
+
+const int sensorPin = 2;
+const int lampuPin1 = 3;
+const int lampuPin2 = 4;
+
+Opp myOpp(lampuPin1, lampuPin2);
+
+void setup() {
+  pinMode(sensorPin, INPUT);
+}
+
+void loop() {
+  int sensorValue = digitalRead(sensorPin);
+
+  if (sensorValue == HIGH) {
+    myOpp.turnOn();
+  } else {
+    myOpp.turnOff();
+  }
+}
